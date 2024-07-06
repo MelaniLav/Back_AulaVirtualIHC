@@ -9,15 +9,15 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "semanas")
+@Table(name = "Semanas")
 public class Semana {
     @Id
+    @Column(name = "SemanaID")
     private Integer semanaid;
 
-    @OneToOne
-    @JoinColumn(name = "CursoID")
-    private Curso cursoid;
+
+    private String cursoid;
     private Integer numerosemana;
-    private String tema;
-    private String descripcion;
+    private java.lang.String tema;
+    private java.lang.String descripcion;
 }

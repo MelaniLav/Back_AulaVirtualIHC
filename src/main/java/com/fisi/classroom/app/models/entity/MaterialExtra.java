@@ -13,12 +13,12 @@ import lombok.*;
 public class MaterialExtra {
 
     @Id
-    private String materialextraid;
+    private java.lang.String materialextraid;
 
     @OneToOne
     @JoinColumn(name = "CursoID")
     private Curso cursoid;
-    private String descripcion;
-    private String URL;
-    private String archivo;
+    private java.lang.String descripcion;
+    private java.lang.String URL;
+    private java.lang.String archivo;
 }

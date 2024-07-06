@@ -14,7 +14,7 @@ public class Curso {
 
     @Id
     @Column(name="id_curso")
-    private String id_curso;
+    private java.lang.String id_curso;
 
     @OneToOne
     @JoinColumn(name="id_plan")
@@ -22,9 +22,11 @@ public class Curso {
     @OneToOne
     @JoinColumn(name="id_profesor")
     private Profesor id_profesor;
-    private String nombre_curso;
-    private String ciclo;
+
+    @Column(name="nombre_curso")
+    private java.lang.String nombrecurso;
+    private java.lang.String ciclo;
     private Integer creditos;
-    private String horario;
+    private java.lang.String horario;
 
 }

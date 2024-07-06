@@ -19,7 +19,7 @@ public class Clase {
     @JoinColumn(name ="id_curso")
     private Curso id_curso;
     private Integer semana;
-    private String documentos;
-    private String anotaciones;
+    private java.lang.String documentos;
+    private java.lang.String anotaciones;
 
 }

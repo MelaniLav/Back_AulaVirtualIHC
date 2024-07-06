@@ -25,9 +25,9 @@ public class Matricula {
     @OneToOne
     @JoinColumn(name = "id_curso")
     private Curso id_curso;
-    private String facultad;
-    private String escuela;
-    private String periodo;
+    private java.lang.String facultad;
+    private java.lang.String escuela;
+    private java.lang.String periodo;
     private Date fecha_matricula;
 
 }

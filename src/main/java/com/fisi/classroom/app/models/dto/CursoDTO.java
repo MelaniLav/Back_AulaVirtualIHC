@@ -1,15 +1,15 @@
 package com.fisi.classroom.app.models.dto;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.stereotype.Service;
 
 @Setter
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class CursoDTO {
-    private String nombre_curso;
+    private String nombrecurso;
     private String nombre_profesor;
     private Integer profesorid;
     private byte[] foto;

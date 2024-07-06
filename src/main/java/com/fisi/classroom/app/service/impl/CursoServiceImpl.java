@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -28,7 +27,7 @@ public class CursoServiceImpl implements ICursoService {
         List<Curso> cur = cursoDAO.findAll();
         for(Curso curso: cur){
             CursoDTO dto = new CursoDTO();
-            dto.setNombre_curso(curso.getNombre_curso());
+            dto.setNombrecurso(curso.getNombrecurso());
             dto.setProfesorid(curso.getId_profesor().getId_profesor());
             dto.setNombre_profesor(curso.getId_profesor().getNombre_profesor());
             dto.setCiclo(curso.getCiclo());
@@ -37,5 +36,21 @@ public class CursoServiceImpl implements ICursoService {
             cursos_lista.add(dto);
         }
         return cursos_lista;
+    }
+
+    @Override
+    public List<java.lang.String> listarNombres() {
+        return cursoDAO.listarNombres();
+    }
+
+    @Override
+    public CursoDTO findByNombre_curso(java.lang.String nombre_curso) {
+        Curso curso = cursoDAO.findByNombrecurso(nombre_curso);
+        return CursoDTO.builder()
+                .ciclo(curso.getCiclo())
+                .nombre_profesor(curso.getId_profesor().getNombre_profesor())
+                .horario(curso.getHorario())
+                .nombrecurso(curso.getNombrecurso())
+                .build();
     }
 }

@@ -9,4 +9,8 @@ public interface ICursoService {
     public List<Curso> findAll();
 
     public List<CursoDTO> listarCursos();
+
+    public List<java.lang.String> listarNombres();
+
+    public CursoDTO findByNombre_curso(java.lang.String nombre_curso);
 }
