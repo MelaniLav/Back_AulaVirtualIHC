@@ -14,12 +14,12 @@ import lombok.*;
 public class Cuenta {
     @Id
     @Column(name = "id_cuenta")
-    private Integer id_cuenta;
+    private Integer idcuenta;
     private String correo;
     private String contrasena;
     @OneToOne
     @JoinColumn(name = "id_rol")
-    private Rol id_rol;
+    private Rol idrol;
 
 
 }
