@@ -1,9 +1,12 @@
 package com.fisi.classroom.app.controllers;
 
 import com.fisi.classroom.app.models.dto.CursoDTO;
+import com.fisi.classroom.app.models.dto.MaterialDto;
+import com.fisi.classroom.app.models.dto.MaterialExtraDTO;
 import com.fisi.classroom.app.models.entity.Curso;
 import com.fisi.classroom.app.models.entity.Profesor;
 import com.fisi.classroom.app.service.ICursoService;
+import com.fisi.classroom.app.service.IMaterialEService;
 import com.fisi.classroom.app.service.IProfesorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,7 +25,8 @@ public class CursoController {
 
     @Autowired
     private IProfesorService profesorService;
-
+    @Autowired
+    private IMaterialEService materialEService;
 
     @GetMapping("/listar")
     public List<Curso> listarCursos(){
@@ -43,5 +47,10 @@ public class CursoController {
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_PNG)
                 .body(profesor.getFoto());
+    }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/listaMaterialesE")
+    public List<MaterialExtraDTO> listarMaterialesExtra(){
+        return (List<MaterialExtraDTO>) materialEService.listarMaterialesExtra();
     }
 }

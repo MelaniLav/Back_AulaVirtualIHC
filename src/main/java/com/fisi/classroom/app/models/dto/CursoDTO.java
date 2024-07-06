@@ -16,4 +16,5 @@ public class CursoDTO {
     private String ciclo;
     private Integer creditos;
     private String horario;
+    private String id_curso;
 }

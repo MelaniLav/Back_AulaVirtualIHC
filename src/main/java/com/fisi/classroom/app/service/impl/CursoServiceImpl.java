@@ -34,6 +34,7 @@ public class CursoServiceImpl implements ICursoService {
             dto.setCiclo(curso.getCiclo());
             dto.setCreditos(curso.getCreditos());
             dto.setHorario(curso.getHorario());
+            dto.setId_curso(curso.getId_curso());
             cursos_lista.add(dto);
         }
         return cursos_lista;
