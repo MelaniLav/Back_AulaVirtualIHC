@@ -1,12 +1,9 @@
 package com.fisi.classroom.app.controllers;
 
 import com.fisi.classroom.app.models.dto.CursoDTO;
-<<<<<<< HEAD
 import com.fisi.classroom.app.models.dto.SemanaDto;
-=======
 import com.fisi.classroom.app.models.dto.MaterialDto;
 import com.fisi.classroom.app.models.dto.MaterialExtraDTO;
->>>>>>> origin/ramaMelani
 import com.fisi.classroom.app.models.entity.Curso;
 import com.fisi.classroom.app.models.entity.Profesor;
 import com.fisi.classroom.app.service.ICursoService;
@@ -32,7 +29,6 @@ public class CursoController {
 
     @Autowired
     private IProfesorService profesorService;
-<<<<<<< HEAD
 
     @Autowired
     private ISemanaService semanaService;

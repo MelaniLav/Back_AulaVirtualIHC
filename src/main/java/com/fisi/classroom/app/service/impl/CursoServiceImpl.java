@@ -27,7 +27,7 @@ public class CursoServiceImpl implements ICursoService {
         List<Curso> cur = cursoDAO.findAll();
         for(Curso curso: cur){
             CursoDTO dto = new CursoDTO();
-            dto.setNombrecurso(curso.getNombrecurso());
+            dto.setNombre_curso(curso.getNombrecurso());
             dto.setProfesorid(curso.getId_profesor().getId_profesor());
             dto.setNombre_profesor(curso.getId_profesor().getNombre_profesor());
             dto.setCiclo(curso.getCiclo());
@@ -51,7 +51,7 @@ public class CursoServiceImpl implements ICursoService {
                 .ciclo(curso.getCiclo())
                 .nombre_profesor(curso.getId_profesor().getNombre_profesor())
                 .horario(curso.getHorario())
-                .nombrecurso(curso.getNombrecurso())
+                .nombre_curso(curso.getNombrecurso())
                 .build();
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @NoArgsConstructor
 @Builder
 public class CursoDTO {
-    private String nombrecurso;
+    private String nombre_curso;
     private String nombre_profesor;
     private Integer profesorid;
     private byte[] foto;

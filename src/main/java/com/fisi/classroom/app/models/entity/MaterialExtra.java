@@ -18,14 +18,7 @@ public class MaterialExtra {
     @OneToOne
     @JoinColumn(name = "CursoID")
     private Curso cursoid;
-<<<<<<< HEAD
-    private java.lang.String descripcion;
-    private java.lang.String URL;
-    private java.lang.String archivo;
-=======
     private String tipo;
     private String descripcion;
     private String URL;
-    private String archivo;
->>>>>>> origin/ramaMelani
 }

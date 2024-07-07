@@ -42,7 +42,6 @@ public class SemanaServiceImpl implements ISemanaService {
         List<SemanaDto> semanas_curso = new ArrayList<>();
         List<Semana> semanas = semanaRepository.findAllByCursoid(curso1.getId_curso());
 
-
         semanas.stream().forEach(semana -> {
             List<TareaDto> dto_tareas = new ArrayList<>();
             List<Tarea> tareas_semana = tareaRepository.findAllBySemanaid(semana);
