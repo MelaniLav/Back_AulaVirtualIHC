@@ -1,10 +1,16 @@
 package com.fisi.classroom.app.controllers;
 
 import com.fisi.classroom.app.models.dto.CursoDTO;
+<<<<<<< HEAD
 import com.fisi.classroom.app.models.dto.SemanaDto;
+=======
+import com.fisi.classroom.app.models.dto.MaterialDto;
+import com.fisi.classroom.app.models.dto.MaterialExtraDTO;
+>>>>>>> origin/ramaMelani
 import com.fisi.classroom.app.models.entity.Curso;
 import com.fisi.classroom.app.models.entity.Profesor;
 import com.fisi.classroom.app.service.ICursoService;
+import com.fisi.classroom.app.service.IMaterialEService;
 import com.fisi.classroom.app.service.IProfesorService;
 import com.fisi.classroom.app.service.ISemanaService;
 import org.slf4j.Logger;
@@ -26,11 +32,16 @@ public class CursoController {
 
     @Autowired
     private IProfesorService profesorService;
+<<<<<<< HEAD
 
     @Autowired
     private ISemanaService semanaService;
 
     private static final Logger logger = LoggerFactory.getLogger(CursoController.class);
+
+
+    @Autowired
+    private IMaterialEService materialEService;
 
 
     @GetMapping("/listar")
@@ -66,8 +77,15 @@ public class CursoController {
 
 
 
+
     @GetMapping("/semanas/{curso}")
     public List<SemanaDto> getAvailableWeeks(@PathVariable String curso) {
         return semanaService.findAllWeeks(curso);
+    }
+
+    @GetMapping("/listaMaterialesE")
+    public List<MaterialExtraDTO> listarMaterialesExtra(){
+        return (List<MaterialExtraDTO>) materialEService.listarMaterialesExtra();
+
     }
 }

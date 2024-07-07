@@ -2,6 +2,7 @@ package com.fisi.classroom.app.service.impl;
 
 import com.fisi.classroom.app.models.dto.MaterialDto;
 import com.fisi.classroom.app.models.dto.SemanaDto;
+
 import com.fisi.classroom.app.models.dto.TareaDto;
 import com.fisi.classroom.app.models.entity.Curso;
 import com.fisi.classroom.app.models.entity.Material;
@@ -11,6 +12,7 @@ import com.fisi.classroom.app.repository.CursoRepository;
 import com.fisi.classroom.app.repository.MaterialRepository;
 import com.fisi.classroom.app.repository.SemanaRepository;
 import com.fisi.classroom.app.repository.TareaRepository;
+
 import com.fisi.classroom.app.service.ISemanaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,13 +35,12 @@ public class SemanaServiceImpl implements ISemanaService {
     @Autowired
     private MaterialRepository materialRepository;
 
+
     @Override
     public List<SemanaDto> findAllWeeks(String nombrecurso) {
         Curso curso1 = cursoRepository.findByNombrecurso(nombrecurso);
         List<SemanaDto> semanas_curso = new ArrayList<>();
         List<Semana> semanas = semanaRepository.findAllByCursoid(curso1.getId_curso());
-
-
 
 
         semanas.stream().forEach(semana -> {
@@ -78,7 +79,8 @@ public class SemanaServiceImpl implements ISemanaService {
         });
 
 
-
         return semanas_curso;
     }
+
+
 }
