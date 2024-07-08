@@ -1,8 +1,14 @@
 package com.fisi.classroom.app.service.impl;
 
 import com.fisi.classroom.app.models.dto.CursoDTO;
+import com.fisi.classroom.app.models.entity.Alumno;
+import com.fisi.classroom.app.models.entity.Cuenta;
 import com.fisi.classroom.app.models.entity.Curso;
+import com.fisi.classroom.app.models.entity.Profesor;
+import com.fisi.classroom.app.repository.AlumnoRepository;
+import com.fisi.classroom.app.repository.CuentaRepository;
 import com.fisi.classroom.app.repository.CursoRepository;
+import com.fisi.classroom.app.repository.ProfesorRepository;
 import com.fisi.classroom.app.service.ICursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +21,15 @@ import java.util.List;
 public class CursoServiceImpl implements ICursoService {
     @Autowired
     private CursoRepository cursoDAO;
+
+    @Autowired
+    private ProfesorRepository profesorDAO;
+
+    @Autowired
+    private AlumnoRepository alumnoDAO;
+
+    @Autowired
+    private CuentaRepository cuentaRepository;
     @Override
     @Transactional(readOnly = true)
     public List<Curso> findAll() {
@@ -53,5 +68,18 @@ public class CursoServiceImpl implements ICursoService {
                 .horario(curso.getHorario())
                 .nombre_curso(curso.getNombrecurso())
                 .build();
+    }
+
+    @Override
+    public List<CursoDTO> listarCursosDtoPorUsuario(String email) {
+        Cuenta cuenta = cuentaRepository.findByCorreo(email);
+        if (cuenta.getIdrol().getRol().equals("PROFESOR_ROL")){
+            Profesor profesor = profesorDAO.findByIdcuenta(cuenta);
+            return null;
+        }else{
+
+            List<CursoDTO> cursos = alumnoDAO.findCursosByAlumnoId(email);
+            return cursos;
+        }
     }
 }

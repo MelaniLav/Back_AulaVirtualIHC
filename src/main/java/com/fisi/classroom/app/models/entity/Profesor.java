@@ -20,7 +20,7 @@ public class Profesor {
     private String fecha_nacimiento;
     @OneToOne
     @JoinColumn(name="id_cuenta")
-    private Cuenta id_cuenta;
+    private Cuenta idcuenta;
     @Lob
     @Column(name = "foto")
     private byte[] foto;

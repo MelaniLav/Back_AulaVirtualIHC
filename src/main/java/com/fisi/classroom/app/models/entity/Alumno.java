@@ -20,6 +20,8 @@ public class Alumno {
     @OneToOne
     @JoinColumn(name = "id_cuenta")
     private Cuenta cuenta;
+
+    @Column(name = "nombre_alumno")
     private String nombrealumno;
     private String situacion;
 
