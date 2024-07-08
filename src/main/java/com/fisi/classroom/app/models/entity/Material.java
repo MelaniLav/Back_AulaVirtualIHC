@@ -13,6 +13,7 @@ import lombok.*;
 public class Material {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer materialid;
 
     @OneToOne
@@ -21,5 +22,5 @@ public class Material {
     private String tipo;
     private String descripcion;
     private String URL;
-    private String archivo;
+    private byte[] archivo;
 }

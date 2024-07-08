@@ -13,8 +13,8 @@ import lombok.*;
 public class Semana {
     @Id
     @Column(name = "SemanaID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer semanaid;
-
 
     private String cursoid;
     private Integer numerosemana;
