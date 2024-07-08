@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class SemanaDto {
-
+    private String idcurso;
     private String tema;
     private Integer numerosemana;
     private String descripcion;

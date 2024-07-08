@@ -1,11 +1,14 @@
 package com.fisi.classroom.app.controllers;
 
+import com.fisi.classroom.app.exception.InvalidDataException;
+import com.fisi.classroom.app.exception.ResourseNotFoundException;
 import com.fisi.classroom.app.models.dto.CursoDTO;
 import com.fisi.classroom.app.models.dto.SemanaDto;
 import com.fisi.classroom.app.models.dto.MaterialDto;
 import com.fisi.classroom.app.models.dto.MaterialExtraDTO;
 import com.fisi.classroom.app.models.entity.Curso;
 import com.fisi.classroom.app.models.entity.Profesor;
+import com.fisi.classroom.app.models.entity.Semana;
 import com.fisi.classroom.app.service.ICursoService;
 import com.fisi.classroom.app.service.IMaterialEService;
 import com.fisi.classroom.app.service.IProfesorService;
@@ -16,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
@@ -71,9 +75,6 @@ public class CursoController {
                 .body(profesor.getFoto());
     }
 
-
-
-
     @GetMapping("/semanas/{curso}")
     public List<SemanaDto> getAvailableWeeks(@PathVariable String curso) {
         return semanaService.findAllWeeks(curso);
@@ -82,6 +83,22 @@ public class CursoController {
     @GetMapping("/listaMaterialesE")
     public List<MaterialExtraDTO> listarMaterialesExtra(){
         return (List<MaterialExtraDTO>) materialEService.listarMaterialesExtra();
+    }
 
+    @PostMapping("/guardar-semana")
+    public ResponseEntity<Semana> createSemana(@RequestBody SemanaDto dto){
+        try{
+            Semana semana = semanaService.createSemana(dto);
+            return ResponseEntity.ok(semana);
+        }catch (ResourseNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }catch (InvalidDataException e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/lastCodeSem")
+    public Integer getLastCodeSemana(){
+        return semanaService.getLastCodeSemana();
     }
 }

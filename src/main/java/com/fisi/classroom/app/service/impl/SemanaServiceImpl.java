@@ -13,7 +13,11 @@ import com.fisi.classroom.app.repository.MaterialRepository;
 import com.fisi.classroom.app.repository.SemanaRepository;
 import com.fisi.classroom.app.repository.TareaRepository;
 
+import com.fisi.classroom.app.service.IMaterialService;
 import com.fisi.classroom.app.service.ISemanaService;
+import com.fisi.classroom.app.service.ITareaService;
+import com.fisi.classroom.app.util.MaterialConvert;
+import com.fisi.classroom.app.util.TareaConvert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +38,18 @@ public class SemanaServiceImpl implements ISemanaService {
 
     @Autowired
     private MaterialRepository materialRepository;
+
+    @Autowired
+    private TareaConvert tareaConvert;
+
+    @Autowired
+    private ITareaService tareaService;
+
+    @Autowired
+    private IMaterialService materialService;
+
+    @Autowired
+    private MaterialConvert materialConvert;
 
 
     @Override
@@ -72,13 +88,29 @@ public class SemanaServiceImpl implements ISemanaService {
                     .tareas(dto_tareas)
                     .materiales(dto_material)
                     .build();
-
-
             semanas_curso.add(dto);
         });
-
-
         return semanas_curso;
+    }
+    @Override
+    public Semana createSemana(SemanaDto dto){
+        Semana semana = new Semana();
+        semana.setCursoid(dto.getIdcurso());
+        semana.setNumerosemana(dto.getNumerosemana());
+        semana.setTema(dto.getTema());
+        semana.setDescripcion(dto.getDescripcion());
+        Semana saveSemana = semanaRepository.save(semana);
+        List<Tarea> tareas = tareaConvert.convertTarea(dto.getTareas(),saveSemana);
+        List<Material> materials = materialConvert.convertMaterial(dto.getMateriales(),saveSemana);
+        tareaService.saveAll(tareas);
+        materialService.saveAll(materials);
+        return saveSemana;
+    }
+
+    @Override
+    public Integer getLastCodeSemana(){
+        List<Integer> semanas = semanaRepository.getLastCodeSemana();
+        return semanas.get(0);
     }
 
 
