@@ -2,13 +2,8 @@ package com.fisi.classroom.app.controllers;
 
 import com.fisi.classroom.app.exception.InvalidDataException;
 import com.fisi.classroom.app.exception.ResourseNotFoundException;
-import com.fisi.classroom.app.models.dto.CursoDTO;
-import com.fisi.classroom.app.models.dto.SemanaDto;
-import com.fisi.classroom.app.models.dto.MaterialDto;
-import com.fisi.classroom.app.models.dto.MaterialExtraDTO;
-import com.fisi.classroom.app.models.entity.Curso;
-import com.fisi.classroom.app.models.entity.Profesor;
-import com.fisi.classroom.app.models.entity.Semana;
+import com.fisi.classroom.app.models.dto.*;
+import com.fisi.classroom.app.models.entity.*;
 import com.fisi.classroom.app.repository.AlumnoRepository;
 import com.fisi.classroom.app.repository.ProfesorRepository;
 import com.fisi.classroom.app.service.*;
@@ -51,6 +46,12 @@ public class CursoController {
     @Autowired
     private ICuentaService cuentaService;
 
+    @Autowired
+    private IMaterialService materialService;
+
+    @Autowired
+    private ITareaService tareaService;
+
 
     @GetMapping("/listar")
     public List<Curso> listarCursos(){
@@ -88,6 +89,11 @@ public class CursoController {
         return semanaService.findAllWeeks(curso);
     }
 
+    @GetMapping("/semanasAlone/{curso}")
+    public List<SemanaAloneDto> getAvailableWeeksAlone(@PathVariable String curso) {
+        return semanaService.findAllWeeksAlone(curso);
+    }
+
     @GetMapping("/listaMaterialesE")
     public List<MaterialExtraDTO> listarMaterialesExtra(){
         return (List<MaterialExtraDTO>) materialEService.listarMaterialesExtra();
@@ -98,6 +104,42 @@ public class CursoController {
         try{
             Semana semana = semanaService.createSemana(dto);
             return ResponseEntity.ok(semana);
+        }catch (ResourseNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }catch (InvalidDataException e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping("/actualizar-semana")
+    public ResponseEntity<Semana> updateSemana(@RequestBody SemanaAloneDto dto){
+        try{
+            Semana semana = semanaService.updateSemana(dto);
+            return ResponseEntity.ok(semana);
+        }catch (ResourseNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }catch (InvalidDataException e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping("/actualizar-tarea")
+    public ResponseEntity<Tarea> updateTarea(@RequestBody TareaDto dto){
+        try{
+            Tarea tarea = tareaService.updateTarea(dto);
+            return ResponseEntity.ok(tarea);
+        }catch (ResourseNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }catch (InvalidDataException e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping("/actualizar-material")
+    public ResponseEntity<Material> updateMaterial(@RequestBody MaterialDto dto){
+        try{
+            Material material = materialService.updateMaterial(dto);
+            return ResponseEntity.ok(material);
         }catch (ResourseNotFoundException e){
             return ResponseEntity.notFound().build();
         }catch (InvalidDataException e){

@@ -1,5 +1,8 @@
 package com.fisi.classroom.app.service.impl;
 
+import com.fisi.classroom.app.models.dto.MaterialDto;
+import com.fisi.classroom.app.models.dto.TareaDto;
+import com.fisi.classroom.app.models.entity.Material;
 import com.fisi.classroom.app.models.entity.Tarea;
 import com.fisi.classroom.app.repository.TareaRepository;
 import com.fisi.classroom.app.service.ITareaService;
@@ -26,5 +29,21 @@ public class TareaImpl implements ITareaService {
     @Override
     public List<Tarea> saveAll(List<Tarea> tareas){
         return tareaRepository.saveAll(tareas);
+    }
+
+    @Override
+    public Tarea updateTarea(TareaDto dto){
+        Tarea tarea = tareaRepository.findById(dto.getTareaid()).orElse(null);
+        if(tarea == null){
+            throw new RuntimeException("La tarea no fue encontrada");
+        }
+
+        tarea.setDescripcion(dto.getDescripcion());
+        tarea.setNota(dto.getNota());
+
+        Tarea updateTarea = tareaRepository.save(tarea);
+
+        return updateTarea;
+
     }
 }

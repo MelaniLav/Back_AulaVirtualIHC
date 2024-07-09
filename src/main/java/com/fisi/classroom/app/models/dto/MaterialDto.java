@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class MaterialDto {
-
+    private Integer materialid;
     private String tipo;
     private String descripcion;
     private String url;

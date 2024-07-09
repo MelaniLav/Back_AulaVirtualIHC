@@ -1,6 +1,7 @@
 package com.fisi.classroom.app.service.impl;
 
 import com.fisi.classroom.app.models.dto.MaterialDto;
+import com.fisi.classroom.app.models.dto.SemanaAloneDto;
 import com.fisi.classroom.app.models.dto.SemanaDto;
 
 import com.fisi.classroom.app.models.dto.TareaDto;
@@ -63,6 +64,7 @@ public class SemanaServiceImpl implements ISemanaService {
             List<Tarea> tareas_semana = tareaRepository.findAllBySemanaid(semana);
             tareas_semana.stream().forEach(tarea -> {
                 TareaDto tareaDto = TareaDto.builder()
+                        .tareaid(tarea.getTareaid())
                         .descripcion(tarea.getDescripcion())
                         .nota(tarea.getNota())
                         .build();
@@ -73,6 +75,7 @@ public class SemanaServiceImpl implements ISemanaService {
             List<Material> materiales_semana = materialRepository.findAllBySemanaid(semana);
             materiales_semana.stream().forEach(material -> {
                 MaterialDto materialDto = MaterialDto.builder()
+                        .materialid(material.getMaterialid())
                         .tipo(material.getTipo())
                         .descripcion(material.getDescripcion())
                         .url(material.getURL())
@@ -92,6 +95,24 @@ public class SemanaServiceImpl implements ISemanaService {
         });
         return semanas_curso;
     }
+
+    @Override
+    public List<SemanaAloneDto> findAllWeeksAlone(String nombrecurso) {
+        Curso curso1 = cursoRepository.findByNombrecurso(nombrecurso);
+        List<SemanaAloneDto> semanas_cursoAlone = new ArrayList<>();
+        List<Semana> semanas = semanaRepository.findAllByCursoid(curso1.getId_curso());
+
+        semanas.stream().forEach(semana -> {
+            SemanaAloneDto dto = SemanaAloneDto.builder()
+                    .semanaid(semana.getSemanaid())
+                    .numerosemana(semana.getNumerosemana())
+                    .tema(semana.getTema())
+                    .descripcion(semana.getDescripcion())
+                    .build();
+            semanas_cursoAlone.add(dto);
+        });
+        return semanas_cursoAlone;
+    }
     @Override
     public Semana createSemana(SemanaDto dto){
         Semana semana = new Semana();
@@ -105,6 +126,23 @@ public class SemanaServiceImpl implements ISemanaService {
         tareaService.saveAll(tareas);
         materialService.saveAll(materials);
         return saveSemana;
+    }
+
+    @Override
+    public Semana updateSemana(SemanaAloneDto dto){
+        Semana semana = semanaRepository.findById(dto.getSemanaid()).orElse(null);
+        if(semana == null){
+            throw new RuntimeException("La semana no fue encontrada");
+        }
+
+        semana.setNumerosemana(dto.getNumerosemana());
+        semana.setTema(dto.getTema());
+        semana.setDescripcion(dto.getDescripcion());
+
+        Semana updateSemana = semanaRepository.save(semana);
+
+        return updateSemana;
+
     }
 
     @Override
