@@ -39,7 +39,7 @@ public class SecurityConfig{
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
-                        .requestMatchers("/curso/**").permitAll()
+                        .requestMatchers("/curso/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

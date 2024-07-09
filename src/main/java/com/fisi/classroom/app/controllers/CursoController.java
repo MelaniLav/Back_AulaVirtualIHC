@@ -52,6 +52,9 @@ public class CursoController {
     @Autowired
     private ITareaService tareaService;
 
+    @Autowired
+    private IMatriculaService matriculaService;
+
 
     @GetMapping("/listar")
     public List<Curso> listarCursos(){
@@ -178,5 +181,10 @@ public class CursoController {
     @GetMapping("/{email}/nombre")
     public ResponseEntity<String> getName(@PathVariable String email){
         return ResponseEntity.ok(cuentaService.getName(email));
+    }
+
+    @GetMapping("/correos/{idCurso}")
+    public ResponseEntity<List<AlumnoDTO>> getCorreosByCurso(@PathVariable String idCurso){
+        return ResponseEntity.ok(matriculaService.getCorreosByCurso(idCurso));
     }
 }
